@@ -29,7 +29,7 @@ GLfloat angle2 = 0.0;   /* in degrees */
 
 //camera
 double eye[] = { 0, 0, 2 };
-double center[] = { 0, 0, 1 };
+double center[] = { 0, 0, 0 };
 double up[] = {0.0, 1.0, 0.0};
 
 
