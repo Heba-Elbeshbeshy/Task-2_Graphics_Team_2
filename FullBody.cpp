@@ -1,5 +1,8 @@
 #include <GL/glut.h>
+#include <math.h>
 #include <stdlib.h>
+
+#define PI 3.14
 
 static int shoulder = 0, elbow = 0 , body =0; 
 static int fingerBase1 = 0, fingerUp1 = 0; 
@@ -24,16 +27,90 @@ int moving, startx, starty;
 GLfloat angle = 0.0;   /* in degrees */
 GLfloat angle2 = 0.0;   /* in degrees */
 
+//camera
+double eye[] = { 0, 0, 2 };
+double center[] = { 0, 0, 1 };
+double up[] = {0.0, 1.0, 0.0};
+
+
+void crossProduct(double a[], double b[], double c[])
+{
+	c[0] = a[1] * b[2] - a[2] * b[1];
+	c[1] = a[2] * b[0] - a[0] * b[2];
+	c[2] = a[0] * b[1] - a[1] * b[0];
+}
+
+void normalize(double a[])
+{
+	double norm;
+	norm = a[0] * a[0] + a[1] * a[1] + a[2] * a[2];
+	norm = sqrt(norm);
+	a[0] /= norm;
+	a[1] /= norm;
+	a[2] /= norm;
+}
+
+void rotatePoint(double a[], double theta, double p[])
+{
+
+	double temp[3];
+	temp[0] = p[0];
+	temp[1] = p[1];
+	temp[2] = p[2];
+
+	temp[0] = -a[2] * p[1] + a[1] * p[2];
+	temp[1] = a[2] * p[0] - a[0] * p[2];
+	temp[2] = -a[1] * p[0] + a[0] * p[1];
+
+	temp[0] *= sin(theta);
+	temp[1] *= sin(theta);
+	temp[2] *= sin(theta);
+
+	temp[0] += (1 - cos(theta)) * (a[0] * a[0] * p[0] + a[0] * a[1] * p[1] + a[0] * a[2] * p[2]);
+	temp[1] += (1 - cos(theta)) * (a[0] * a[1] * p[0] + a[1] * a[1] * p[1] + a[1] * a[2] * p[2]);
+	temp[2] += (1 - cos(theta)) * (a[0] * a[2] * p[0] + a[1] * a[2] * p[1] + a[2] * a[2] * p[2]);
+
+	temp[0] += cos(theta) * p[0];
+	temp[1] += cos(theta) * p[1];
+	temp[2] += cos(theta) * p[2];
+
+	p[0] = temp[0];
+	p[1] = temp[1];
+	p[2] = temp[2];
+}
+
 void init(void)
 {
    glClearColor(0.0, 0.0, 0.0, 0.0);
    glShadeModel(GL_FLAT);
+
+   glMatrixMode(GL_PROJECTION);
+	gluPerspective(60.0, 1.0, 1.0, 20.0);
+	//glMatrixMode(GL_MODELVIEW);
 }
 
+void reset()
+{
+	double e[] = {0.0, 0.0, 2};
+	double c[] = {0.0, 0.0, 1.0};
+	double u[] = {0.0, 1.0, 0.0};
+	for (int i = 0; i < 3; i++)
+	{
+		eye[i] = e[i];
+		center[i] = c[i];
+		up[i] = u[i];
+	}
+}
 
 void display(void)
 {
    glClear(GL_COLOR_BUFFER_BIT);
+
+   //glPushMatrix();
+   gluLookAt(eye[0], eye[1], eye[2],
+			  center[0], center[1], center[2],
+			  up[0], up[1], up[2]);
+    //glPopMatrix();
 
    glPushMatrix();
    glRotatef(angle2, 1.0, 0.0, 0.0);
@@ -167,8 +244,77 @@ void display(void)
    
    glPopMatrix();
    glutSwapBuffers();
+
+
+
 }
 
+// Rotation about vertical direction
+void lookRight()
+{
+	rotatePoint(up, PI / 20, eye);
+}
+
+void lookLeft()
+{
+	rotatePoint(up, -PI / 20, eye);
+}
+
+// Rotation about horizontal direction
+
+void lookUp()
+{
+	double horizontal[3];
+	double look[] = {center[0] - eye[0], center[1] - eye[1], center[2] - eye[2]};
+	crossProduct(up, look, horizontal);
+	normalize(horizontal);
+	rotatePoint(horizontal, PI / 20, eye);
+	rotatePoint(horizontal, PI / 20, up);
+}
+
+void lookDown()
+{
+	double horizontal[3];
+	double look[] = {center[0] - eye[0], center[1] - eye[1], center[2] - eye[2]};
+	crossProduct(up, look, horizontal);
+	normalize(horizontal);
+	rotatePoint(horizontal, -PI / 20, eye);
+	rotatePoint(horizontal, -PI / 20, up);
+}
+
+// Forward and Backward
+void moveForward()
+{
+	double direction[3];
+	direction[0] = center[0] - eye[0];
+	direction[1] = center[1] - eye[1];
+	direction[2] = center[2] - eye[2];
+	double speed = 0.1;
+	eye[0] += direction[0] * speed;
+	eye[1] += direction[1] * speed;
+	eye[2] += direction[2] * speed;
+
+	center[0] += direction[0] * speed;
+	center[1] += direction[1] * speed;
+	center[2] += direction[2] * speed;
+}
+
+void moveBackword()
+{
+	double direction[3];
+	direction[0] = center[0] - eye[0];
+	direction[1] = center[1] - eye[1];
+	direction[2] = center[2] - eye[2];
+	double speed = 0.1;
+	eye[0] -= direction[0] * speed;
+	eye[1] -= direction[1] * speed;
+	eye[2] -= direction[2] * speed;
+
+	center[0] -= direction[0] * speed;
+	center[1] -= direction[1] * speed;
+	center[2] -= direction[2] * speed;
+
+}
 
 void reshape(int w, int h)
 {
@@ -178,13 +324,47 @@ void reshape(int w, int h)
    gluPerspective(85.0, (GLfloat)w / (GLfloat)h, 1.0, 20.0);
    glMatrixMode(GL_MODELVIEW);
    glLoadIdentity();
-   glTranslatef(0.0, 0.0, -8.0);
+   glTranslatef(0.0, 0.0, -5.0);
 }
+
+void specialKeys(int key, int x, int y)
+{
+	switch (key)
+	{  
+	case GLUT_KEY_LEFT:
+		lookLeft();
+		break;
+	case GLUT_KEY_RIGHT:
+		lookRight();
+		break;
+	case GLUT_KEY_UP:
+		lookUp();
+		break;
+	case GLUT_KEY_DOWN:
+		lookDown();
+		break;
+	}
+	glutPostRedisplay();
+}
+
 
 void keyboard(unsigned char key, int x, int y)
 {
    switch (key)
-   {   
+   { 
+        //camera's keys
+        case 'f':
+            moveForward();
+            glutPostRedisplay();
+            break;
+        case 'b':
+            moveBackword();
+            glutPostRedisplay();
+            break;
+        case 'r':
+            reset();
+            glutPostRedisplay();
+            break; 
         //   Left Arm
         // Shoulder
         case 's':
@@ -302,15 +482,16 @@ int main(int argc, char **argv)
 {
    glutInit(&argc, argv);
    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
-   glutInitWindowSize(500, 600);
+   glutInitWindowSize(750, 750);
    glutInitWindowPosition(100, 100);
    glutCreateWindow(argv[0]);
    init();
    glutMouseFunc(mouse);
-   glutMotionFunc(motion);
    glutDisplayFunc(display);
    glutReshapeFunc(reshape);
    glutKeyboardFunc(keyboard);
+   glutSpecialFunc(specialKeys);
+   glutMotionFunc(motion);  
    glutMainLoop();
    return 0;
 }
