@@ -10,7 +10,7 @@ static int fingerBase2 = 0, fingerUp2 = 0;
 static int fingerBase3 = 0, fingerUp3 = 0; 
 static int fingerBase4 = 0, fingerUp4 = 0; 
 static int fingerBase5 = 0, fingerUp5 = 0; 
-static int LeftLeg = 0, LeftKnee =0, LeftFoot=0;
+static int LeftLegz = 0, LeftLegx=0 , LeftKneez =0,LeftKneex=0 ,LeftFoot=0;
 
 
 static int shoulder2 = 0, elbow2 = 0 ; 
@@ -19,7 +19,7 @@ static int fingerBase22 = 0, fingerUp22 = 0;
 static int fingerBase23 = 0, fingerUp23 = 0; 
 static int fingerBase24 = 0, fingerUp24 = 0; 
 static int fingerBase25 = 0, fingerUp25 = 0; 
-static int RightLeg = 0, RightKnee =0 , RightFoot=0;
+static int RightLegz = 0, RightLegx=0 , RightKneez =0 ,RightKneex=0, RightFoot=0;
 
 
 int moving, startx, starty;
@@ -106,22 +106,21 @@ void display(void)
 {
    glClear(GL_COLOR_BUFFER_BIT);
 
-   //glPushMatrix();
+   glPushMatrix();
    gluLookAt(eye[0], eye[1], eye[2],
 			  center[0], center[1], center[2],
 			  up[0], up[1], up[2]);
-    //glPopMatrix();
-
-   glPushMatrix();
+    //glPopMatrix();   
    glRotatef(angle2, 1.0, 0.0, 0.0);
    glRotatef(angle, 0.0, 1.0, 0.0);
+
+   glPushMatrix();
    glTranslatef (0.0, 0.0, 0.0);
    glRotatef ((GLfloat) body, 0.0, 0.0, 1.0);
    glTranslatef (0.0, 0.0, 0.0);
    glPushMatrix();
    glScalef (1.5, 4.0, 0.5);
-   glutWireCube (1.0);
-    
+   glutWireCube (1.0);    
    glPopMatrix();
 
 //   Head
@@ -134,15 +133,12 @@ void display(void)
 
 //    Right Arm
    glPushMatrix();
-   glRotatef(angle2, 1.0, 0.0, 0.0);
-   glRotatef(angle, 0.0, 1.0, 0.0);
    glTranslatef (-0.9, 1.85, 0.0);
    glRotatef ((GLfloat) shoulder2, 0.0, 0.0, 1.0);
    glTranslatef (0.0, -0.55, 0.0);
    glPushMatrix();
    glScalef (0.3, 1.25, 0.3);
    glutWireCube (1.0);
-
    glPopMatrix();
 
    glTranslatef (0.0, -0.6, 0.0);
@@ -152,7 +148,74 @@ void display(void)
    glScalef (0.3, 1.25, 0.3);
    glutWireCube (1.0);
    glPopMatrix();
-
+   //**********1
+    glPushMatrix();
+    glTranslatef(-0.1, -0.35, -0.1); 
+    glRotatef((GLfloat)fingerBase1, 0.0, 0.0, 1.0);
+    glTranslatef(0.0, -0.4, 0.0);
+    glPushMatrix();
+    glScalef(0.1, 0.3, 0.1);
+    glutWireCube(1);
+    glPopMatrix();
+    glTranslatef(0.0, -0.1, 0.0);
+    glRotatef((GLfloat)fingerUp1, 0.0, 0.0, 1.0);
+    glTranslatef(0.0, -0.15, 0.0);
+    glPushMatrix();
+    glScalef(0.1, 0.3, 0.1);
+    glutWireCube(1);
+    glPopMatrix();
+    glPopMatrix();
+    //*************2
+    glPushMatrix();
+    glTranslatef(-0.1, -0.35, 0.0); 
+    glRotatef((GLfloat)fingerBase2, 0.0, 0.0, 1.0);
+    glTranslatef(0.0, -0.4, 0.0);
+    glPushMatrix();
+    glScalef(0.1, 0.3, 0.1);
+    glutWireCube(1);
+    glPopMatrix();
+    glTranslatef(0.0, -0.1, 0.0);
+    glRotatef((GLfloat)fingerUp2, 0.0, 0.0, 1.0);
+    glTranslatef(0.0, -0.15, 0.0);
+    glPushMatrix();
+    glScalef(0.1, 0.3, 0.1);
+    glutWireCube(1);
+    glPopMatrix();
+    glPopMatrix();
+    //*************3
+    glPushMatrix();
+    glTranslatef(-0.1, -0.35, 0.1); 
+    glRotatef((GLfloat)fingerBase3, 0.0, 0.0, 1.0);
+    glTranslatef(0.0, -0.4, 0.0);
+    glPushMatrix();
+    glScalef(0.1, 0.3, 0.1);
+    glutWireCube(1);
+    glPopMatrix();
+    glTranslatef(0.0, -0.1, 0.0);
+    glRotatef((GLfloat)fingerUp3, 0.0, 0.0, 1.0);
+    glTranslatef(0.0, -0.15, 0.0);
+    glPushMatrix();
+    glScalef(0.1, 0.3, 0.1);
+    glutWireCube(1);
+    glPopMatrix();
+    glPopMatrix();
+    //*************4
+    glPushMatrix();
+    glTranslatef(0.1, -0.35, 0.0); 
+    glRotatef((GLfloat)fingerBase4, 0.0, 0.0, 1.0);
+    glTranslatef(0.0, -0.4, 0.0);
+    glPushMatrix();
+    glScalef(0.1, 0.3, 0.1);
+    glutWireCube(1);
+    glPopMatrix();
+    glTranslatef(0.0, -0.1, 0.0);
+    glRotatef((GLfloat)fingerUp4, 0.0, 0.0, 1.0);
+    glTranslatef(0.0, -0.15, 0.0);
+    glPushMatrix();
+    glScalef(0.1, 0.3, 0.1);
+    glutWireCube(1);
+    glPopMatrix();
+    glPopMatrix();
    glPopMatrix();
 
 //   Left Arm
@@ -176,29 +239,98 @@ void display(void)
    glutWireCube (1.0);
    glPopMatrix();
 
+   //**********1
+    glPushMatrix();
+    glTranslatef(0.1, -0.35, -0.1); 
+    glRotatef((GLfloat)fingerBase1, 0.0, 0.0, 1.0);
+    glTranslatef(0.0, -0.4, 0.0);
+    glPushMatrix();
+    glScalef(0.1, 0.3, 0.1);
+    glutWireCube(1);
+    glPopMatrix();
+    glTranslatef(0.0, -0.1, 0.0);
+    glRotatef((GLfloat)fingerUp1, 0.0, 0.0, 1.0);
+    glTranslatef(0.0, -0.15, 0.0);
+    glPushMatrix();
+    glScalef(0.1, 0.3, 0.1);
+    glutWireCube(1);
+    glPopMatrix();
+    glPopMatrix();
+    //*************2
+    glPushMatrix();
+    glTranslatef(0.1, -0.35, 0.0); 
+    glRotatef((GLfloat)fingerBase2, 0.0, 0.0, 1.0);
+    glTranslatef(0.0, -0.4, 0.0);
+    glPushMatrix();
+    glScalef(0.1, 0.3, 0.1);
+    glutWireCube(1);
+    glPopMatrix();
+    glTranslatef(0.0, -0.1, 0.0);
+    glRotatef((GLfloat)fingerUp2, 0.0, 0.0, 1.0);
+    glTranslatef(0.0, -0.15, 0.0);
+    glPushMatrix();
+    glScalef(0.1, 0.3, 0.1);
+    glutWireCube(1);
+    glPopMatrix();
+    glPopMatrix();
+    //*************3
+    glPushMatrix();
+    glTranslatef(0.1, -0.35, 0.1); 
+    glRotatef((GLfloat)fingerBase3, 0.0, 0.0, 1.0);
+    glTranslatef(0.0, -0.4, 0.0);
+    glPushMatrix();
+    glScalef(0.1, 0.3, 0.1);
+    glutWireCube(1);
+    glPopMatrix();
+    glTranslatef(0.0, -0.1, 0.0);
+    glRotatef((GLfloat)fingerUp3, 0.0, 0.0, 1.0);
+    glTranslatef(0.0, -0.15, 0.0);
+    glPushMatrix();
+    glScalef(0.1, 0.3, 0.1);
+    glutWireCube(1);
+    glPopMatrix();
+    glPopMatrix();
+    //*************4
+    glPushMatrix();
+    glTranslatef(-0.1, -0.35, 0.0); 
+    glRotatef((GLfloat)fingerBase4, 0.0, 0.0, 1.0);
+    glTranslatef(0.0, -0.4, 0.0);
+    glPushMatrix();
+    glScalef(0.1, 0.3, 0.1);
+    glutWireCube(1);
+    glPopMatrix();
+    glTranslatef(0.0, -0.1, 0.0);
+    glRotatef((GLfloat)fingerUp4, 0.0, 0.0, 1.0);
+    glTranslatef(0.0, -0.15, 0.0);
+    glPushMatrix();
+    glScalef(0.1, 0.3, 0.1);
+    glutWireCube(1);
+    glPopMatrix();
+    glPopMatrix();
+    
    glPopMatrix();
 
 
 //   Right Leg
    glPushMatrix();
-   glRotatef(angle2, 1.0, 0.0, 0.0);
-   glRotatef(angle, 0.0, 1.0, 0.0);
    glTranslatef (-0.55, -2.0, 0.0);
-   glRotatef ((GLfloat) RightLeg, 0.0, 0.0, 1.0);
+   glRotatef ((GLfloat) RightLegz, 0.0, 0.0, 1.0);
+   glRotatef((GLfloat)RightLegx,1.0,0.0,0.0);
    glTranslatef (0.05, -0.9, 0.0);
+   
    glPushMatrix();
    glScalef (0.5, 1.7, 0.5);
    glutWireCube (1.0);
-
    glPopMatrix();
 
-   glTranslatef (0.0, -0.8, 0.0);
-   glRotatef ((GLfloat) RightKnee, 0.0, 0.0, 1.0);
-   glTranslatef (0.0, -0.9, 0.0);
+    glTranslatef (0.0, -0.8, 0.0);
+    glRotatef ((GLfloat) RightKneez, 0.0, 0.0, 1.0);
+    glRotatef((GLfloat)RightKneex,1.0,0.0,0.0);
+    glTranslatef (0.0, -0.8, 0.0);
+   
    glPushMatrix();
    glScalef (0.5, 1.7, 0.5);
    glutWireCube (1.0);
-
    glPopMatrix();
 
    glTranslatef (0.0, -1.0, 0.0);
@@ -216,8 +348,9 @@ void display(void)
    glRotatef(angle2, 1.0, 0.0, 0.0);
    glRotatef(angle, 0.0, 1.0, 0.0);
    glTranslatef (0.55, -2.0, 0.0);
-   glRotatef ((GLfloat) LeftLeg, 0.0, 0.0, 1.0);
-   glTranslatef (-0.05, -0.9, 0.0);
+   glRotatef ((GLfloat) LeftLegz, 0.0, 0.0, 1.0);
+   glRotatef ((GLfloat) LeftLegx, 1.0, 0.0, 0.0);
+   glTranslatef (-0.05, -0.9, 0.0);   
    glPushMatrix();
    glScalef (0.5, 1.7, 0.5);
    glutWireCube (1.0);
@@ -225,7 +358,8 @@ void display(void)
    glPopMatrix();
 
    glTranslatef (0.0, -0.8, 0.0);
-   glRotatef ((GLfloat) LeftKnee, 0.0, 0.0, 1.0);
+   glRotatef ((GLfloat) LeftKneez, 0.0, 0.0, 1.0);
+   glRotatef ((GLfloat) LeftKneex, 1.0, 0.0, 0.0);
    glTranslatef (0.0, -0.9, 0.0);
    glPushMatrix();
    glScalef (0.5, 1.7, 0.5);
@@ -241,11 +375,9 @@ void display(void)
    glutSolidCube (1.0);
 
    glPopMatrix();
-   
+   glPopMatrix(); 
    glPopMatrix();
    glutSwapBuffers();
-
-
 
 }
 
@@ -353,95 +485,160 @@ void keyboard(unsigned char key, int x, int y)
    switch (key)
    { 
         //camera's keys
-        case 'f':
+        case '+':
             moveForward();
             glutPostRedisplay();
             break;
-        case 'b':
+        case '-':
             moveBackword();
             glutPostRedisplay();
             break;
-        case 'r':
+        case '0':
             reset();
             glutPostRedisplay();
             break; 
         //   Left Arm
-        // Shoulder
+        // Shoulder 
         case 's':
+            if (shoulder < 180){
             shoulder = (shoulder + 5) % 360;
             glutPostRedisplay();
+            }
             break;
         case 'S':
+            if (shoulder > -90){
             shoulder = (shoulder - 5) % 360;
             glutPostRedisplay();
+            }
             break;
         // Elbow
         case 'e':
+            if (elbow <90){
             elbow = (elbow + 5) % 180;
             glutPostRedisplay();
+            }
             break;
         case 'E':
+        if (elbow >-90){
             elbow = (elbow - 5) % 180;
             glutPostRedisplay();
+            }
             break;
 
         // Right Arm
         // Shoulder
-        case 'a':
-            shoulder2 = (shoulder2 + 5) % 360;
-            glutPostRedisplay();
-            break;
         case 'A':
+            if (shoulder2 <90){
+            shoulder2 = (shoulder2 + 5) % 360;
+            glutPostRedisplay();}
+            break;
+        case 'a':
+            if (shoulder2 >-180){
             shoulder2 = (shoulder2 - 5) % 360;
-            glutPostRedisplay();
+            glutPostRedisplay();}
             break;
         // Elbow
-        case 'c':
+        case 'W':
+            if (elbow2 <90){
             elbow2 = (elbow2 + 5) % 180;
-            glutPostRedisplay();
+            glutPostRedisplay();}
             break;
-        case 'C':
+        case 'w':
+            if(elbow2 > -90){
             elbow2 = (elbow2 - 5) % 180;
-            glutPostRedisplay();
+            glutPostRedisplay();}
             break;
 
         // Right Leg
-        case 'i':
-            RightLeg = (RightLeg + 5) % 360;
-            glutPostRedisplay();
+        case 'x':
+            if(RightLegx>-90){
+                RightLegx = (RightLegx -5)%360;
+                glutPostRedisplay();
+            }
             break;
-        case 'I':
-            RightLeg = (RightLeg - 5) % 360;
-            glutPostRedisplay();
+        case 'X':
+            if (RightLegx < 90) {
+                RightLegx = (RightLegx +5)%360;
+                glutPostRedisplay();
+            }
+            break;
+        case 'z':
+            if(RightKneex>-20){
+                RightKneex = (RightKneex -5)%360;
+                glutPostRedisplay();
+            }
+            break;
+        case 'Z':
+            if (RightKneex < 90) {
+                RightKneex = (RightKneex +5)%360;
+                glutPostRedisplay();
+            }
+            break;  
+        case 'D':
+            if (RightLegz <90){
+            RightLegz = (RightLegz + 5) % 360;
+            glutPostRedisplay();}
+            break;
+        case 'd':
+            if (RightLegz >-90){
+            RightLegz = (RightLegz - 5) % 360;
+            glutPostRedisplay();}
             break;
     
-        case 'j':
-            RightKnee = (RightKnee + 5) % 180;
-            glutPostRedisplay();
+        case 'R':
+            if (RightKneez <30){
+            RightKneez = (RightKneez + 5) % 180;
+            glutPostRedisplay();}
             break;
-        case 'J':
-            RightKnee = (RightKnee - 5) % 180;
-            glutPostRedisplay();
+        case 'r':
+            if (RightKneez >-30){
+            RightKneez = (RightKneez - 5) % 180;
+            glutPostRedisplay();}
             break;
 
         // Left Leg
-        case 'k':
-            LeftLeg = (LeftLeg + 5) % 360;
-            glutPostRedisplay();
+        case 'f':
+            if (LeftLegz < 90){
+            LeftLegz = (LeftLegz + 5) % 360;
+            glutPostRedisplay();}
             break;
-        case 'K':
-            LeftLeg = (LeftLeg - 5) % 360;
-            glutPostRedisplay();
+        case 'F':
+            if (LeftLegz >-90){
+            LeftLegz = (LeftLegz - 5) % 360;
+            glutPostRedisplay();}
             break;
     
-        case 'l':
-            LeftKnee = (LeftKnee + 5) % 180;
-            glutPostRedisplay();
+        case 't':
+            if (LeftKneez<50){
+            LeftKneez = (LeftKneez + 5) % 180;
+            glutPostRedisplay();}
             break;
-        case 'L':
-            LeftKnee = (LeftKnee - 5) % 180;
-            glutPostRedisplay();
+        case 'T':
+            if (LeftKneez >-50){
+            LeftKneez = (LeftKneez - 5) % 180;
+            glutPostRedisplay();}
             break;
+        case 'c':
+            if (LeftLegx >-90){
+            LeftLegx = (LeftLegx - 5) % 360;
+            glutPostRedisplay();}
+            break;
+        case 'C':
+            if (LeftLegx <90){
+            LeftLegx = (LeftLegx + 5) % 360;
+            glutPostRedisplay();}
+            break;
+    
+        case 'v':
+            if (LeftKneex>-20){
+            LeftKneex = (LeftKneex - 5) % 180;
+            glutPostRedisplay();}
+            break;
+        case 'V':
+            if (LeftKneex <90){
+            LeftKneex = (LeftKneex + 5) % 180;
+            glutPostRedisplay();}
+            break;                
    case 27:
       exit(0);
       break;
