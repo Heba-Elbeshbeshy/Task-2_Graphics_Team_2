@@ -4,7 +4,7 @@
 
 #define PI 3.14
 
-static int shoulder = 0, elbow = 0 , body =0; 
+static int leftshoulderz = 0, leftshoulderx =0, leftelbowz = 0 , leftelbowx=0 , body =0; 
 static int fingerBase1 = 0, fingerUp1 = 0; 
 static int fingerBase2 = 0, fingerUp2 = 0; 
 static int fingerBase3 = 0, fingerUp3 = 0; 
@@ -13,7 +13,7 @@ static int fingerBase5 = 0, fingerUp5 = 0;
 static int LeftLegz = 0, LeftLegx=0 , LeftKneez =0,LeftKneex=0 ,LeftFoot=0;
 
 
-static int shoulder2 = 0, elbow2 = 0 ; 
+static int rightshoulderz = 0, rightshoulderx=0, rightelbowz = 0 , rightelbowx=0; 
 static int fingerBase21 = 0, fingerUp21 = 0; 
 static int fingerBase22 = 0, fingerUp22 = 0; 
 static int fingerBase23 = 0, fingerUp23 = 0; 
@@ -134,7 +134,8 @@ void display(void)
 //    Right Arm
    glPushMatrix();
    glTranslatef (-0.9, 1.85, 0.0);
-   glRotatef ((GLfloat) shoulder2, 0.0, 0.0, 1.0);
+   glRotatef ((GLfloat) rightshoulderz, 0.0, 0.0, 1.0);
+   glRotatef ((GLfloat) rightshoulderx, 1.0, 0.0, 0.0);
    glTranslatef (0.0, -0.55, 0.0);
    glPushMatrix();
    glScalef (0.3, 1.25, 0.3);
@@ -142,7 +143,8 @@ void display(void)
    glPopMatrix();
 
    glTranslatef (0.0, -0.6, 0.0);
-   glRotatef ((GLfloat) elbow2, 0.0, 0.0, 1.0);
+   glRotatef ((GLfloat) rightelbowz, 0.0, 0.0, 1.0);
+   glRotatef ((GLfloat) rightelbowx, 1.0, 0.0, 0.0);
    glTranslatef (0.0, -0.65, 0.0);
    glPushMatrix();
    glScalef (0.3, 1.25, 0.3);
@@ -223,7 +225,8 @@ void display(void)
    glRotatef(angle2, 1.0, 0.0, 0.0);
    glRotatef(angle, 0.0, 1.0, 0.0);
    glTranslatef (0.9, 1.85, 0.0);
-   glRotatef ((GLfloat) shoulder, 0.0, 0.0, 1.0);
+   glRotatef ((GLfloat) leftshoulderz, 0.0, 0.0, 1.0);
+   glRotatef ((GLfloat) leftshoulderx, 1.0, 0.0, 0.0);
    glTranslatef (0.0, -0.55 , 0.0);
    glPushMatrix();
    glScalef (0.3, 1.25, 0.3);
@@ -232,7 +235,8 @@ void display(void)
    glPopMatrix();
 
    glTranslatef (0.0, -0.6, 0.0);
-   glRotatef ((GLfloat) elbow, 0.0, 0.0, 1.0);
+   glRotatef ((GLfloat) leftelbowz, 0.0, 0.0, 1.0);
+   glRotatef ((GLfloat) leftelbowx, 1.0, 0.0, 0.0);
    glTranslatef (0.0, -0.65, 0.0);
    glPushMatrix();
    glScalef (0.3, 1.25, 0.3);
@@ -498,56 +502,106 @@ void keyboard(unsigned char key, int x, int y)
             glutPostRedisplay();
             break; 
         //   Left Arm
-        // Shoulder 
+        // shoulder zzz
         case 's':
-            if (shoulder < 180){
-            shoulder = (shoulder + 5) % 360;
+            if (leftshoulderz < 180){
+            leftshoulderz = (leftshoulderz + 5) % 360;
             glutPostRedisplay();
             }
             break;
         case 'S':
-            if (shoulder > -90){
-            shoulder = (shoulder - 5) % 360;
+            if (leftshoulderz > -90){
+            leftshoulderz = (leftshoulderz - 5) % 360;
             glutPostRedisplay();
             }
             break;
-        // Elbow
+        // elbow zzz
         case 'e':
-            if (elbow <90){
-            elbow = (elbow + 5) % 180;
+            if (leftelbowz <90){
+            leftelbowz = (leftelbowz + 5) % 180;
             glutPostRedisplay();
             }
             break;
         case 'E':
-        if (elbow >-90){
-            elbow = (elbow - 5) % 180;
+        if (leftelbowz >-90){
+            leftelbowz = (leftelbowz - 5) % 180;
+            glutPostRedisplay();
+            }
+            break;
+
+        // shoulder xxx
+        case 'I':
+            if (leftshoulderx < 180){
+            leftshoulderx = (leftshoulderx + 5) % 360;
+            glutPostRedisplay();
+            }
+            break;
+        case 'i':
+            if (leftshoulderx > -90){
+            leftshoulderx = (leftshoulderx - 5) % 360;
+            glutPostRedisplay();
+            }
+            break;
+        // elbow xxx
+        case 'J':
+            if (leftelbowx <90){
+            leftelbowx = (leftelbowx + 5) % 180;
+            glutPostRedisplay();
+            }
+            break;
+        case 'j':
+        if (leftelbowx >-90){
+            leftelbowx = (leftelbowx - 5) % 180;
             glutPostRedisplay();
             }
             break;
 
         // Right Arm
-        // Shoulder
+        // Shoulder zzz
         case 'A':
-            if (shoulder2 <90){
-            shoulder2 = (shoulder2 + 5) % 360;
+            if (rightshoulderz <90){
+            rightshoulderz = (rightshoulderz + 5) % 360;
             glutPostRedisplay();}
             break;
         case 'a':
-            if (shoulder2 >-180){
-            shoulder2 = (shoulder2 - 5) % 360;
+            if (rightshoulderz >-180){
+            rightshoulderz = (rightshoulderz - 5) % 360;
             glutPostRedisplay();}
             break;
-        // Elbow
+        // Elbow zzz
         case 'W':
-            if (elbow2 <90){
-            elbow2 = (elbow2 + 5) % 180;
+            if (rightelbowz <90){
+            rightelbowz = (rightelbowz + 5) % 180;
             glutPostRedisplay();}
             break;
         case 'w':
-            if(elbow2 > -90){
-            elbow2 = (elbow2 - 5) % 180;
+            if(rightelbowz > -90){
+            rightelbowz = (rightelbowz - 5) % 180;
             glutPostRedisplay();}
             break;
+        // Shoulder xxx
+        case 'G':
+            if (rightshoulderx <90){
+            rightshoulderx = (rightshoulderx + 5) % 360;
+            glutPostRedisplay();}
+            break;
+        case 'g':
+            if (rightshoulderx >-180){
+            rightshoulderx = (rightshoulderx - 5) % 360;
+            glutPostRedisplay();}
+            break;
+        // Elbow xxx
+        case 'H':
+            if (rightelbowx <90){
+            rightelbowx = (rightelbowx + 5) % 180;
+            glutPostRedisplay();}
+            break;
+        case 'h':
+            if(rightelbowx > -90){
+            rightelbowx = (rightelbowx - 5) % 180;
+            glutPostRedisplay();}
+            break;
+
 
         // Right Leg
         case 'x':
